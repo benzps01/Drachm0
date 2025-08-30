@@ -4,11 +4,6 @@
   <p>
     <strong>A modern, intuitive expense tracker for managing personal finances with ease.</strong>
   </p>
-  <p>
-    <img src="https://img.shields.io/badge/Expo-53-4630EB.svg?style=flat-square" alt="Expo 53" />
-    <img src="https://img.shields.io/badge/React%20Native-0.79.5-61DAFB.svg?style=flat-square" alt="React Native" />
-    <img src="https://img.shields.io/badge/License-Unlicense-blue.svg?style=flat-square" alt="License" />
-  </p>
 </div>
 
 <br />
