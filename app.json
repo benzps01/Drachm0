@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "Drachm0",
+    "slug": "ExpenseTracker",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/drachmo_logo.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/drachmo_logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.benzps.Drachm0"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/drachmo_logo.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "com.benzps.Drachm0"
+    },
+    "web": {
+      "favicon": "./assets/drachmo_logo.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "1eb8d684-3455-4edf-b3fd-81761ac62952"
+      }
+    }
+  }
+}
