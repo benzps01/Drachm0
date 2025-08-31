@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {
   Provider as PaperProvider,
@@ -11,10 +11,12 @@ import MainNavigator from './src/navigation/MainNavigator';
 import { AuthProvider, useAuth } from './src/context/AuthContext';
 import { DatabaseProvider } from './src/context/DatabaseContext';
 import { ThemeProvider, useTheme } from './src/context/ThemeContext';
+import SplashScreen from './src/screens/main/SplashScreen'; // Import the new splash screen
 
 function AppContent() {
   const { isAuthenticated } = useAuth();
   const { isDark, theme } = useTheme();
+  const [isSplashing, setIsSplashing] = useState(true); // State to control splash screen
 
   // Create custom themes based on our theme context
   const lightTheme = {
@@ -42,6 +44,11 @@ function AppContent() {
   };
 
   const paperTheme = isDark ? darkTheme : lightTheme;
+  
+  // Show splash screen until animation is complete
+  if (isSplashing) {
+    return <SplashScreen onAnimationComplete={() => setIsSplashing(false)} />;
+  }
 
   return (
     <PaperProvider theme={paperTheme}>

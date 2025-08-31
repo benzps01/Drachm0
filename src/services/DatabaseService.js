@@ -105,7 +105,6 @@ class DatabaseService {
       { name: 'Other', type: 'both' },
     ];
     for (const category of defaultCategories) {
-      // Use a "INSERT OR IGNORE" to avoid crashing if categories already exist
       await this.db.runAsync('INSERT OR IGNORE INTO categories (name, type, user_created) VALUES (?, ?, 0)', [category.name, category.type]);
     }
   }
@@ -123,6 +122,12 @@ class DatabaseService {
     return await this.db.getFirstAsync('SELECT * FROM users WHERE username = ? AND password = ?', [username, password]) || null;
   }
 
+  // --- NEW METHOD ADDED HERE ---
+  async getUserByUsername(username) {
+    return await this.db.getFirstAsync('SELECT * FROM users WHERE username = ?', [username]) || null;
+  }
+  // -----------------------------
+
   async getCategories(type = null) {
     const query = type ? 'SELECT * FROM categories WHERE type = ? OR type = "both" ORDER BY user_created, name' : 'SELECT * FROM categories ORDER BY user_created, name';
     const params = type ? [type] : [];
@@ -131,20 +136,14 @@ class DatabaseService {
 
   async addCategory(name, type) {
     const trimmedName = name.trim();
-  
-    // 1. Check if the category already exists (case-insensitive)
     const existingCategory = await this.db.getFirstAsync(
       'SELECT id FROM categories WHERE lower(name) = lower(?) AND (type = ? OR type = "both")',
       [trimmedName, type]
     );
-  
-    // 2. If it exists, return the ID of the existing category
     if (existingCategory) {
       console.log(`Category "${trimmedName}" already exists.`);
       return existingCategory.id;
     }
-  
-    // 3. If it does not exist, insert the new category
     const result = await this.db.runAsync('INSERT INTO categories (name, type, user_created) VALUES (?, ?, 1)', [trimmedName, type]);
     return result.lastInsertRowId;
   }
